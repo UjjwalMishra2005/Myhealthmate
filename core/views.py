@@ -1,7 +1,23 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login
-def home(request):
-    return render(request, 'main.html',{'is_authenticated': request.user.is_authenticated}) 
+def home(request): 
+    token = None
+    if request.user.is_authenticated:
+        try:
+            token = request.user.token  # reverse OneToOne access
+        except Token.DoesNotExist:
+            token = None
+
+        else:
+            token_is_served = token.is_served
+
+
+    return render(request, 'main.html', {
+        'is_authenticated': request.user.is_authenticated,
+        'token': token,
+        'token_is_served': token_is_served if token else None
+    })
+
 
 # def signup(request):
 #     return render(request, 'signup.html')   
@@ -79,28 +95,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Token,Department
-
-# @csrf_exempt  # Only for prototyping! Use @csrf_protect with CSRF token in production.
-# @login_required
-# def save_token(request):
-#     if request.user.is_authenticated:
-#         print('request method:', request.method)
-#         print('request body:', request.body)
-#         if request.method == 'POST':
-#             data = json.loads(request.body)
-#             # Do something with `data`, like saving to DB
-#             new_token = Token(
-#             patient=request.user,
-#             center_name=data.get('center_name'),
-#             center_code=data.get('center_code')
-#         )
-#             new_token.save()
-
-#             print("Received token data:", data)
-#             print(new_token.token_number)
-            
-#             return JsonResponse({'status': 'success'})
-#         return JsonResponse({'error': 'Invalid method'}, status=405)
 from django.utils import timezone
 @login_required
 def serve(request):
@@ -112,11 +106,11 @@ def serve(request):
             token = Token.objects.get(id=token_id)
             token.served_at = timezone.now()
             token.department = dept
-            token.is_active = False
+            token.is_served = True
             token.save()
             return redirect('/')
         depts = Department.objects.all()
-        tokens = Token.objects.filter(is_active = True)
+        tokens = Token.objects.filter(is_served = False).order_by('created_at')
         tokens_count = tokens.count()
         return render(request, 'serve.html',{'tokens': tokens, 'tokens_count': tokens_count, 'departments': depts})
     return redirect('home')

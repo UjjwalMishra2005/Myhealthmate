@@ -12,12 +12,12 @@ class Patient(AbstractUser):
 from django.db import models
 from django.utils import timezone
 class Token(models.Model):
-    patient = models.ForeignKey('core.Patient', on_delete=models.CASCADE, unique=True)
+    patient = models.OneToOneField('core.Patient', on_delete=models.CASCADE)
     token_number = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     served_at = models.DateTimeField(null=True, blank=True)
     department = models.CharField(max_length=50, null=True, blank=True)
-    is_active = models.BooleanField(default=True)
+    is_served = models.BooleanField(default=False)
     center_name = models.CharField(max_length=100, null=True, blank=True)
     center_code = models.CharField(max_length=20, null=True, blank=True)
     class Meta:

@@ -75,6 +75,10 @@ TEMPLATES = [
         },
     },
 ]
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 AUTH_USER_MODEL = 'core.Patient'
 WSGI_APPLICATION = 'MyHealthMate.wsgi.application'
 

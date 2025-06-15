@@ -8,619 +8,293 @@
 
             <title>MyHealthMate </title>
             <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intro.js/minified/introjs.min.css" />
-            <style>
-                    #skip-tutorial {
-                        position: fixed;
-                        top: 20px;
-                        right: 20px;
-                        background-color: #ff4d4d;
-                        color: white;
-                        border: none;
-                        padding: 10px 15px;
-                        border-radius: 5px;
-                        font-size: 14px;
-                        cursor: pointer;
-                        z-index: 9999999;
-                        }
-
-                        #skip-tutorial:hover {
-                        background-color: #e60000;
-                        }
-                #serve-div{
-                    margin-left: auto;
-                    margin-right:auto;
-                }
-                @keyframes fade-in {
-                        from { opacity: 0; transform: translateY(-4px); }
-                        to { opacity: 1; transform: translateY(0); }
-                    }
-                    .animate-fade-in {
-                        animation: fade-in 0.16s ease;
-                    }
-                    .dropdown-menu {
-                        display: none;
-                    }
-                    .dropdown-menu.show {
-                        display: block;
-                    }
-                /* Hide on small screens */
-                .desktop-only {
-                    display: none;
-                }
-
-                @media screen and (min-width: 768px) {
-                    .desktop-only {
-                    display: list-item;
-                    }
-                }
-
-                .dropdown-toggle {
-
-                    cursor: pointer;
-                    font-size: 16px;
-                    padding: 8px;
-                    color: #333;
-                    text-decoration: none;
-                }
-
-                .dropdown-menu {
-                    display: none;
-                    position: absolute;
-                    top: 35px;
-                    left: -100px;
-                    background: #fff;
-                    border: 1px solid #ccc;
-                    border-radius: 6px;
-                    min-width: 150px;
-                    z-index: 1000;
-                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                }
-
-                .dropdown-item {
-                    padding: 10px 15px;
-                    display: block;
-                    color: #333;
-                    text-decoration: none;
-                    font-size: 15px;
-                }
-
-                .dropdown-item:hover {
-                    background-color: #f5f5f5;
-                }
-
-
-                @keyframes fade-in {
-                0% { opacity: 0; transform: translateY(-10px); }
-                100% { opacity: 1; transform: translateY(0); }
-                }
-
-                .animate-fade-in {
-                animation: fade-in 0.2s ease-out forwards;
-                }
-               
-                #hamburger-btn.open .line:nth-child(1) {
-                    transform: rotate(45deg) translate(3px, 3px);
-                }
-
-                #hamburger-btn.open .line:nth-child(2) {
-                    opacity: 0;
-                }
-
-                #hamburger-btn.open .line:nth-child(3) {
-                    transform: rotate(-45deg) translate(3px, -3px);
-                }
-
-                a{
-                    cursor:pointer;
-                }
-
-                body {
-                    font-family: 'Arial', sans-serif;
-                    background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
-                    min-height: 100vh;
-                }
-
-                /* Navigation Styles */
-                .navbar {
-                    background: white;
-                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-                    border-bottom: 1px solid #e0f2fe;
-                    padding: 0 20px;
-                }
-
-                .nav-container {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    height: 64px;
-                }
-
-                .logo {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                }
-
-                .logo-icon {
-                    width: 32px;
-                    height: 32px;
-                    color: #2563eb;
-                }
-
-                .logo-text {
-                    font-size: 20px;
-                    font-weight: bold;
-                    color: #111827;
-                }
-
-                .nav-links {
-                    display: flex;
-                    gap: 32px;
-                    list-style: none;
-                }
-
-                .nav-links a {
-                    text-decoration: none;
-                    color: #374151;
-                    font-weight: 500;
-                    transition: color 0.3s ease;
-                }
-
-                .nav-links a:hover {
-                    color: #2563eb;
-                }
-
-                .nav-links a.active {
-                    color: #111827;
-                }
-
-                /* Mobile menu button */
-                .mobile-menu {
-                    display: none;
-                    background: none;
-                    border: none;
-                    color: #374151;
-                    cursor: pointer;
-                }
-
-                /* Main Content */
-                .main-container {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 48px 20px;
-                }
-
-                .hero-section {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 48px;
-                    align-items: center;
-                }
-
-                .hero-content {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 32px;
-                }
-
-                .hero-text h1 {
-                    font-size: 3.5rem;
-                    font-weight: bold;
-                    color: #111827;
-                    line-height: 1.1;
-                    margin-bottom: 16px;
-                }
-
-                .hero-text .highlight {
-                    color: #2563eb;
-                }
-
-                .hero-text p {
-                    font-size: 1.25rem;
-                    color: #6b7280;
-                    line-height: 1.6;
-                }
-
-                .feature-pills {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 12px;
-                }
-
-                .pill {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    padding: 8px 16px;
-                    border-radius: 25px;
-                    font-size: 14px;
-                    font-weight: 500;
-                }
-
-                .pill.support {
-                    background: #dbeafe;
-                    color: #1e40af;
-                }
-
-                .pill.secure {
-                    background: #dcfce7;
-                    color: #166534;
-                }
-
-                .pill.expert {
-                    background: #f3e8ff;
-                    color: #7c3aed;
-                }
-
-                .action-buttons {
-                    display: flex;
-                    gap: 16px;
-                }
-
-                .btn {
-                    padding: 12px 32px;
-                    font-size: 18px;
-                    font-weight: 600;
-                    border-radius: 8px;
-                    border: none;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    text-decoration: none;
-                    display: inline-block;
-                    text-align: center;
-                }
-
-                .btn-primary {
-                    background: #2563eb;
-                    color: white;
-                    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
-                }
-
-                .btn-primary:hover {
-                    background: #1d4ed8;
-                    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-                }
-
-                .btn-outline {
-                    background: transparent;
-                    color: #2563eb;
-                    border: 2px solid #2563eb;
-                }
-
-                .btn-outline:hover {
-                    background: #eff6ff;
-                }
-
-                /* Doctor Image Section */
-                .hero-image {
-                    position: relative;
-                }
-
-                .image-container {
-                    position: relative;
-                    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-                    border-radius: 16px;
-                    overflow: hidden;
-                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-                    height: 500px;
-                }
-
-                .doctor-image {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    mix-blend-mode: overlay;
-                }
-
-                .image-overlay {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: linear-gradient(to top, rgba(30, 64, 175, 0.2) 0%, transparent 100%);
-                }
-
-                .floating-element {
-                    position: absolute;
-                    background: white;
-                    padding: 16px;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-                }
-
-                .online-status {
-                    top: -16px;
-                    right: -16px;
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                }
-
-                .status-dot {
-                    width: 12px;
-                    height: 12px;
-                    background: #10b981;
-                    border-radius: 50%;
-                    animation: pulse 2s infinite;
-                }
-
-                .doctors-available {
-                    bottom: -16px;
-                    left: -16px;
-                    text-align: center;
-                }
-
-                .stat-number {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #2563eb;
-                    margin-bottom: 4px;
-                }
-
-                .stat-label {
-                    font-size: 14px;
-                    color: #6b7280;
-                }
-
-                /* Generate Token Section */
-                .token-section {
-                    margin-top: 64px;
-                    text-align: center;
-                }
-
-                .token-card {
-                    background: white;
-                    border-radius: 16px;
-                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-                    padding: 32px;
-                    max-width: 400px;
-                    margin: 0 auto;
-                    border: 1px solid #e0f2fe;
-                }
-
-                .token-card h3 {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #111827;
-                    margin-bottom: 16px;
-                }
-
-                .token-card p {
-                    color: #6b7280;
-                    margin-bottom: 24px;
-                }
-
-                .token-btn {
-                    width: 100%;
-                    padding: 12px 24px;
-                    font-size: 18px;
-                    font-weight: 600;
-                    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-                    color: white;
-                    border: none;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-                }
-
-                .token-btn:hover {
-                    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-                    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-                }
-
-                /* Stats Section */
-                .stats-section {
-                    margin-top: 80px;
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 32px;
-                }
-
-                .stat-card {
-                    text-align: center;
-                    padding: 24px;
-                    background: white;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-                    transition: box-shadow 0.3s ease;
-                }
-
-                .stat-card:hover {
-                    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-                }
-
-                .stat-card .stat-number {
-                    font-size: 48px;
-                    font-weight: bold;
-                    margin-bottom: 8px;
-                }
-
-                .stat-card:nth-child(1) .stat-number {
-                    color: #2563eb;
-                }
-
-                .stat-card:nth-child(2) .stat-number {
-                    color: #059669;
-                }
-
-                .stat-card:nth-child(3) .stat-number {
-                    color: #7c3aed;
-                }
-
-                /* Animations */
-                @keyframes pulse {
-                    0%, 100% {
-                        opacity: 1;
-                    }
-                    50% {
-                        opacity: 0.5;
-                    }
-                }
-
-                /* Responsive Design */
-                @media (max-width: 768px) {
-                    .nav-links {
-                        display: none;
-                    }
-
-                    .mobile-menu {
-                        display: block;
-                    }
-
-                    .hero-section {
-                        grid-template-columns: 1fr;
-                        gap: 32px;
-                    }
-
-                    .hero-text h1 {
-                        font-size: 2.5rem;
-                    }
-
-                    .stats-section {
-                        grid-template-columns: 1fr;
-                        gap: 24px;
-                    }
-
-                    .action-buttons {
-                        flex-direction: column;
-                    }
-                }
-            </style>
+            <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+            <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css">
+
+            <link rel="stylesheet" href="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.css">
+           
         </head>
         <body>
+            <!-- floating box -->
+            {% if token and not token_is_served %}
+
+            <div id="floatingBox" class="fixed top-20 left-20 w-48 bg-white shadow-2xl rounded-lg border border-gray-200 z-50 floating-box box-appear">
+        <div id="boxHeader" class="cursor-grab px-3 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-lg flex justify-between items-center">
+            <div class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="font-semibold text-sm">आपका टोकन</span>
+            </div>
+            <button id="closeBox" class="text-white hover:text-gray-200 text-lg leading-none transition-colors duration-200 w-5 h-5 flex items-center justify-center rounded-full hover:bg-white/20">
+                &times;
+            </button>
+        </div>
+        <div class="p-3">
+            <div class="mb-2">
+                <h3 class="text-sm font-semibold text-gray-800 mb-1">📋 टोकन नंबर : {{token.token_number}}</h3>
+                <div class="space-y-1 text-gray-700 text-xs">
+                    <div class="flex items-start space-x-1">
+                        <span class="text-blue-500 font-bold">•</span>
+                        <span>रोगी का नाम : {{ token.patient.full_name }}</span>
+                    </div>
+                    <!-- <div class="flex items-start space-x-1">
+                        <span class="text-blue-500 font-bold">•</span>
+                        <span>Center code</span>
+                    </div> -->
+                    <div class="flex items-start space-x-1">
+                        <span class="text-blue-500 font-bold">•</span>
+                        <span>अस्पताल : {{ token.center_name }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-blue-50 p-2 rounded border-l-2 border-blue-400">
+                <p class="text-xs text-blue-800">
+                    <strong>💡 Tip:</strong> कृपया काउंटर पर यह टोकन नंबर बताएं
+                </p>
+            </div>
+        </div>
+            </div>
+            {% endif %}
+
+    <!-- floating box ends here -->
             
             <div id="main-content" hx-target="this">
                 <!-- Navigation Bar -->
-            <nav class="navbar">
-                <div class="nav-container">
-                    <div class="logo">
-                        <svg class="logo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+
+                <nav class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="bg-blue-600 text-white p-2 rounded-lg mr-3">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
-                        <a href="{% url 'home' %}"><span class="logo-text">MyHealthMate</span></a>
                     </div>
-                    <li class="dropdown-container desktop-only" style="position: relative;">
-                <a href="#" class="dropdown-toggle" id="dropdownToggle">
-                    ▼
-                </a>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <a hx-get="{% url 'serve' %}" hx-target="#main-content" class="dropdown-item">Serve</a>
-                    <a href="#" class="dropdown-item">Token History</a>
+                    <a href="{% url 'home' %}" class="text-xl font-bold text-gray-900">MyHealthMate</a>
                 </div>
-                </li>
 
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="{% url 'home' %}" class="text-blue-600 font-medium">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Awareness</a>
                     
-                    <ul class="nav-links">
-                        <li><a  hx-get="{% url 'home' %}" hx-target="#main-content" class="active">Home</a></li>
-                        <li><a id="coming-soon-link1" hx-get="#" hx-target="#main-content">Awareness</a></li>
-                        {% if request.user.is_authenticated %}
-                        <li><a  hx-get="#" hx-target="#main-content">{{ request.user.full_name }}</a></li>
-                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <!-- Username and Dropdown -->
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-700 font-medium">{{request.user.full_name}}</span>
+                        
+                        <!-- Dropdown -->
 
-                        {% else %}
-                        <!-- <li><a hx-get="{% url 'login' %}" hx-target="#main-content">Login</a></li> -->
-                        <!-- <li><a hx-get="{% url 'signup' %}" hx-target="#main-content">Signup</a></li> -->
-                        {% endif %}
-                    </ul>
-                   
-            <div class="relative md:hidden z-50">
-            <button id="hamburger-btn" class="relative w-6 h-6 flex items-center justify-center group focus:outline-none">
-                <span class="line absolute w-5 h-0.5 bg-gray-800 transition-transform duration-300 ease-in-out top-1"></span>
-                <span class="line absolute w-5 h-0.5 bg-gray-800 transition-opacity duration-300 ease-in-out top-2.5"></span>
-                <span class="line absolute w-5 h-0.5 bg-gray-800 transition-transform duration-300 ease-in-out top-4"></span>
-            </button>
+                        <div class="relative">
+                            <button 
+                                class="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition-colors duration-200"
+                                id="dropdownToggle"
+                            >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            
+                            <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50">
+                                {% if not request.user.is_authenticated %}
+                                <a hx-get="{% url 'login' %}" hx-target="#main-content" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150">
+                                    👤 Profile
+                                </a>
+                                <a hx-get="{% url 'signup' %}" hx-target="#main-content" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150">
+                                    🩺 Serve
+                                </a>
+                                {% else %}
+                                <a href="#"  class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150">
+                                    👤 Profile
+                                </a>
+                                <a href="{% url 'serve' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150">
+                                    🩺 Serve
+                                </a>
+                                {% endif %}
 
-            <div id="hamburger-menu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-2 animate-fade-in">
-                {% if request.user.is_authenticated %}
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">👤 Profile</a>
-                <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">🚪 Logout</a>
-                <a hx-get="{% url 'serve' %}" hx-target="#main-content" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">🩺 Serve</a>
-                <a id="coming-soon-link" href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">📜 Token History</a>
-                {% else %}
-                <!-- <a hx-get="{% url 'signup' %}" hx-target="#main-content" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">📝 Sign Up</a> -->
-                <!-- <a hx-get="{% url 'login' %}" hx-target="#main-content" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">🔐 Login</a> -->
-                 <!-- <li><a hx-get="{% url 'login' %}" hx-target="#main-content">Login</a></li> -->
+                            </div>
+                        </div>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="text-gray-700 hover:text-blue-600 font-medium">Logout</a>
                 {% endif %}
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">📢 Awareness Program</a>
-            </div>
-            </div>
-
-
-
-
-
-
                 </div>
-            </nav>
 
-            <!-- QR Scanner Popup -->
+                <!-- Mobile Hamburger Menu -->
+                <div class="relative md:hidden z-50">
+                    <button 
+                        class="relative w-6 h-6 flex items-center justify-center group focus:outline-none"
+                        id="mobileMenuToggle"
+                    >
+                        <span class="absolute w-5 h-0.5 bg-gray-800 transition-transform duration-300 ease-in-out transform translate-y-1.5" id="line1"></span>
+                        <span class="absolute w-5 h-0.5 bg-gray-800 transition-opacity duration-300 ease-in-out" id="line2"></span>
+                        <span class="absolute w-5 h-0.5 bg-gray-800 transition-transform duration-300 ease-in-out transform -translate-y-1.5" id="line3"></span>
+                    </button>
+
+                    <div id="mobileMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-2">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">👤 Profile</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">🚪 Logout</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">🩺 Serve</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">📜 Token History</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">📢 Awareness Program</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
 
              
             {% block content %} 
 
-        
-
-        
-        
         {% endblock %}
             
         <script src="https://unpkg.com/htmx.org@1.9.2"></script>
         <script src="https://cdn.jsdelivr.net/npm/intro.js/minified/intro.min.js"></script>
         <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    
+        <script src="{% static 'js/script.js' %}"></script>
 
 
 
-<script>
-  let intro = introJs();  // create ONE instance
 
-//  intro.setOptions({
-  //  steps: [
-    //  { intro: "👋 Welcome to the site!" },
-      //{ element: document.querySelector('#feature1'), intro: "Feature 1 explained." },
-      //{ element: document.querySelector('#feature2'), intro: "Feature 2 explained." }
-  //  ]
-  //});
 
-  // Attach event handlers to the correct instance
-  intro.onexit(function () {
-    document.getElementById('skip-tutorial').style.display = 'none';
-  });
+        <script>
+        
+        // Dropdown toggle functionality
+        const dropdownToggle = document.getElementById('dropdownToggle');
+        const dropdownMenu = document.getElementById('dropdownMenu');
 
-  intro.oncomplete(function () {
-    document.getElementById('skip-tutorial').style.display = 'none';
-  });
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle('hidden');
+        });
 
-  intro.start(); // start after event handlers are set
+        // Mobile menu toggle functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
 
-  // Other unrelated logic...
-  const btn = document.getElementById('hamburger-btn');
-  const menu = document.getElementById('hamburger-menu');
+        mobileMenuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+            
+            // Toggle hamburger animation
+            if (mobileMenu.classList.contains('hidden')) {
+                line1.style.transform = 'translateY(6px)';
+                line2.style.opacity = '1';
+                line3.style.transform = 'translateY(-6px)';
+            } else {
+                line1.style.transform = 'rotate(45deg) translateY(0)';
+                line2.style.opacity = '0';
+                line3.style.transform = 'rotate(-45deg) translateY(0)';
+            }
+        });
 
-  btn.addEventListener('click', () => {
-    btn.classList.toggle('open');
-    menu.classList.toggle('hidden');
-  });
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+            
+            if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+                // Reset hamburger lines
+                line1.style.transform = 'translateY(6px)';
+                line2.style.opacity = '1';
+                line3.style.transform = 'translateY(-6px)';
+            }
+        });
+        // Floating box functionality
+            const floatingBox = document.getElementById("floatingBox");
+            const boxHeader = document.getElementById("boxHeader");
+            const closeBtn = document.getElementById("closeBox");
 
-  window.addEventListener('click', (e) => {
-    if (!btn.contains(e.target) && !menu.contains(e.target)) {
-      btn.classList.remove('open');
-      menu.classList.add('hidden');
-    }
-  });
+            let isDragging = false;
+            let offsetX = 0;
+            let offsetY = 0;
 
-  // Skip Tutorial button manually
-  function endTutorial() {
-    intro.exit(); // use the same instance
-    document.getElementById('skip-tutorial').style.display = 'none';
-  }
-</script>
+            // Hide floating box with smooth animation
+            function hideFloatingBox() {
+                floatingBox.style.transform = 'translateY(-20px) scale(0.9)';
+                floatingBox.style.opacity = '0';
+                
+                setTimeout(() => {
+                    floatingBox.style.display = 'none';
+                }, 300);
+            }
+
+            // Dragging functionality with smooth movements
+            boxHeader.addEventListener("mousedown", (e) => {
+                isDragging = true;
+                offsetX = e.clientX - floatingBox.offsetLeft;
+                offsetY = e.clientY - floatingBox.offsetTop;
+                boxHeader.style.cursor = "grabbing";
+                document.body.classList.add('dragging');
+                floatingBox.classList.add('dragging');
+            });
+
+            document.addEventListener("mouseup", () => {
+                if (isDragging) {
+                    isDragging = false;
+                    boxHeader.style.cursor = "grab";
+                    document.body.classList.remove('dragging');
+                    floatingBox.classList.remove('dragging');
+                }
+            });
+
+            document.addEventListener("mousemove", (e) => {
+                if (!isDragging) return;
+                
+                e.preventDefault();
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                
+                // Keep within viewport bounds with smooth constraint
+                const maxX = window.innerWidth - floatingBox.offsetWidth;
+                const maxY = window.innerHeight - floatingBox.offsetHeight;
+                
+                newX = Math.max(0, Math.min(newX, maxX));
+                newY = Math.max(0, Math.min(newY, maxY));
+                
+                // Use transform for smoother movement
+                floatingBox.style.left = `${newX}px`;
+                floatingBox.style.top = `${newY}px`;
+            });
+
+            // Close button functionality
+            closeBtn.addEventListener("click", hideFloatingBox);
+
+            // Close with Escape key
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && floatingBox.style.display !== 'none') {
+                    hideFloatingBox();
+                }
+            });
+
+            // Prevent text selection while dragging
+            boxHeader.addEventListener("selectstart", (e) => {
+                if (isDragging) e.preventDefault();
+            });
+
+            // Smooth resize handling
+            window.addEventListener('resize', () => {
+                if (!isDragging) {
+                    const rect = floatingBox.getBoundingClientRect();
+                    const maxX = window.innerWidth - floatingBox.offsetWidth;
+                    const maxY = window.innerHeight - floatingBox.offsetHeight;
+                    
+                    if (rect.left > maxX) {
+                        floatingBox.style.left = `${maxX}px`;
+                    }
+                    if (rect.top > maxY) {
+                        floatingBox.style.top = `${maxY}px`;
+                    }
+                }
+            });
+    </script>   
 
 {% block scripts %}
 

@@ -2,8 +2,8 @@
 {% load static %}
 {% block content %}
 
-<main class="main-container">
-  <button id="skip-tutorial" onclick="endTutorial()">Skip Tutorial</button>
+<main class="main-container" id="mainContainer">
+
                 <!-- Hero Section -->
                 <div class="hero-section">
                     <!-- Left Content -->
@@ -39,10 +39,12 @@
                         </div>
 
                         <!-- Action Buttons -->
+                         {% if not request.user.is_authenticated %}
                         <div class="action-buttons">
                             <a data-step="2" data-intro="यदि आप इस साइट पर नए हैं तो यह बटन दबाकर अकाउंट बनाए" hx-get="{% url 'signup' %}" hx-target="#main-content" class="btn btn-primary">Sign in</a>
                             <a data-step="3" data-intro="यदि आप पहले से एकाउंट बना चुके हैं तो यह बटन दबाकर लॉगिन करें" hx-get="{% url 'login' %}" hx-target="#main-content" class="btn btn-outline">Log in</a>
                         </div>
+                        {% endif %}
                     </div>
 
                     <!-- Right Image -->
@@ -98,7 +100,7 @@
                         <div class="stat-label">Support Available</div>
                     </div>
                 </div>
-            </main>
+</main>
 
   </div>
 </div>
@@ -107,12 +109,10 @@
 {% endblock %}
 {% block scripts %}
 
-<script>
-    const isLoggedIn = JSON.parse("{{ is_authenticated|lower }}");
-</script>
+
 
 <script>
-  
+  const isLoggedIn = JSON.parse("{{ is_authenticated|lower }}");
   document.getElementById("scan-qr-btn").addEventListener("click", () => {
       if (!isLoggedIn) {
     alert("कृपया पहले लॉग इन करें या साइन अप करें।");
@@ -196,6 +196,23 @@
       ?.split('=')[1];
     return value || '';
   }
+
+
+  // Create the button element
+  const skipButton = document.createElement('button');
+  skipButton.id = 'skip-tutorial';
+  skipButton.textContent = 'Skip Tutorial';
+  skipButton.onclick = function () {
+    endTutorial();
+  };
+
+  // Insert it just after the #mainContainer element
+  const mainContainer = document.getElementById('mainContainer');
+  if (mainContainer && mainContainer.parentNode) {
+    mainContainer.parentNode.insertBefore(skipButton, mainContainer.nextSibling);
+  }
+
+
 </script>
 
 
