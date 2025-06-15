@@ -1,0 +1,6 @@
+<select name="doctor" required class="border px-3 py-2 rounded">
+  <option value="">Select Doctor</option>
+  {% for doctor in doctors %}
+    <option value="{{ doctor.id }}">{{ doctor.name }}</option>
+  {% endfor %}
+</select>

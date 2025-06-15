@@ -1,0 +1,204 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+
+<main class="main-container">
+  <button id="skip-tutorial" onclick="endTutorial()">Skip Tutorial</button>
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <!-- Left Content -->
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            
+                            <h1 data-step="1" data-intro="हमारी साइट पर आपका स्वागत है!">आपका स्वास्थ्य, <span class="highlight">हमारी प्राथमिकता !!</span></h1>
+                            <p>हमारे व्यापक डिजिटल प्लेटफ़ॉर्म के साथ अगली पीढ़ी की स्वास्थ्य सेवा का अनुभव करें। प्रमाणित डॉक्टरों से जुड़ें, अपने स्वास्थ्य रिकॉर्ड प्रबंधित करें और अपनी सेहत के बारे में जानकारी प्राप्त करें।</p>
+                        </div>
+
+                        <!-- Feature Pills -->
+                        <div class="feature-pills">
+                            <div class="pill support">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                                <span>24/7 Support</span>
+                            </div>
+                            <div class="pill secure">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                                <span>Secure & Private</span>
+                            </div>
+                            <div class="pill expert">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="m22 21-3-3m0-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                                </svg>
+                                <span>Expert Doctors</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <a data-step="2" data-intro="यदि आप इस साइट पर नए हैं तो यह बटन दबाकर अकाउंट बनाए" hx-get="{% url 'signup' %}" hx-target="#main-content" class="btn btn-primary">Sign in</a>
+                            <a data-step="3" data-intro="यदि आप पहले से एकाउंट बना चुके हैं तो यह बटन दबाकर लॉगिन करें" hx-get="{% url 'login' %}" hx-target="#main-content" class="btn btn-outline">Log in</a>
+                        </div>
+                    </div>
+
+                    <!-- Right Image -->
+                    <div class="hero-image">
+                        <div class="image-container">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Professional Doctor" class="doctor-image">
+                            <div class="image-overlay"></div>
+                        </div>
+                        
+                        <!-- Floating Elements -->
+                        <div class="floating-element online-status">
+                            <div class="status-dot"></div>
+                            <span>Online Now</span>
+                        </div>
+                        
+                        <div class="floating-element doctors-available">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Doctors Available</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generate Token Section -->
+                <div  class="token-section">
+                    <div class="token-card">
+                        <h3>Quick Access</h3>
+                        <p>Generate your secure access token to begin your healthcare journey</p>
+                        <button id="scan-qr-btn" class="token-btn">क्यूआर कोड स्कैन करें</button>
+                     <div id="reader" style="width: 300px; margin-top: 20px;"></div>
+                    </div>
+                </div>
+                <!-- ✅ Popup Modal -->
+                <div id="tokenPopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm w-full">
+                    <h2 class="text-lg font-bold mb-4">Scanned Token</h2>
+                    <p id="tokenText" class="mb-4 text-gray-700"></p>
+                    <button id="closePopup" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Okay</button>
+                </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="stats-section">
+                    <div class="stat-card">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Patients Served</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Expert Doctors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support Available</div>
+                    </div>
+                </div>
+            </main>
+
+  </div>
+</div>
+
+
+{% endblock %}
+{% block scripts %}
+
+<script>
+    const isLoggedIn = JSON.parse("{{ is_authenticated|lower }}");
+</script>
+
+<script>
+  
+  document.getElementById("scan-qr-btn").addEventListener("click", () => {
+      if (!isLoggedIn) {
+    alert("कृपया पहले लॉग इन करें या साइन अप करें।");
+    return;
+  }
+    const qrScanner = new Html5QrcodeScanner("reader", {
+      fps: 10,
+      qrbox: 250
+    });
+
+    let scanAttempts = 0;
+    let alerted = false;
+
+    qrScanner.render(
+      (decodedText) => {
+        try {
+          const data = JSON.parse(decodedText);
+
+          if (!data.center_name) {
+            alert("Not a valid token QR code.");
+            qrScanner.clear();
+            return;
+          }
+
+          // ✅ Show token popup
+          document.getElementById("tokenText").textContent =
+            `Center name is ${data.center_name}, center code is ${data.center_code}`;
+          document.getElementById("tokenPopup").classList.remove("hidden");
+
+          fetch('/save_token/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(res => {
+            if (res.status === 409) {
+              throw new Error("duplicate");
+            }
+            if (!res.ok) throw new Error("Failed to save token");
+            return res.json();
+          })
+          .then(result => {
+            console.log("Saved to backend:", result);
+          })
+          .catch(err => {
+            console.error("Backend save error:", err);
+            if (err.message === "duplicate") {
+              alert("आपका टोकन पहले ही जनरेट हो चुका है.");
+            } else {
+              alert("Could not save the token.");
+            }
+          });
+
+        } catch {
+          alert("Scanned QR is not valid JSON.");
+        }
+
+        qrScanner.clear();
+      },
+      (error) => {
+        if (++scanAttempts > 10 && !alerted) {
+          alerted = true;
+          alert("This doesn't seem to be a QR code.");
+          qrScanner.clear();
+        }
+      }
+    );
+  });
+
+  document.getElementById("closePopup").addEventListener("click", () => {
+    document.getElementById("tokenPopup").classList.add("hidden");
+  });
+
+  // ✅ CSRF Token helper (for Django)
+  function getCSRFToken() {
+    const name = 'csrftoken';
+    const value = document.cookie.split('; ')
+      .find(row => row.startsWith(name + '='))
+      ?.split('=')[1];
+    return value || '';
+  }
+</script>
+
+
+
+
+{% endblock %}

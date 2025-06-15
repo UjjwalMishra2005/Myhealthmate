@@ -1,0 +1,91 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-8 text-gray-900 px-6 pt-4">
+  Patient Data Table
+</h1>
+
+  
+  <div id="serve-div" class="w-full max-w-4xl overflow-auto bg-white rounded-xl shadow border border-gray-200">
+    <table class="w-full relative">
+      <thead>
+        <tr class="bg-gray-50 text-gray-800 text-base">
+          <th class="py-4 px-4 font-semibold text-left">Token Number</th>
+          <th class="py-4 px-4 font-semibold text-left">Date</th>
+          <th class="py-4 px-4 font-semibold text-left">Patient Name</th>
+          <th class="py-4 px-4 font-semibold text-center">Department</th>
+          <th class="py-4 px-4 font-semibold text-center">Doctor</th>
+          <th class="py-4 px-4 font-semibold text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Row 1 -->
+        {% for token in tokens %}
+        
+        <tr class="hover:bg-gray-50 transition border-t border-gray-100">
+          <td class="py-3 px-4">{{ token.token_number }}</td>
+          <td class="py-3 px-4">{{ token.created_at }}</td>
+          <td class="py-3 px-4">{{ token.patient.full_name }}</td>
+
+          <!-- Clean dropdown menu -->
+          <td class="py-3 px-4 text-center">
+            <form action="{% url 'serve' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="token_id" value="{{ token.id }}">
+<div id="flexbox-container" class="flex items-center justify-between ml-[30px] gap-4 w-full max-w-md">
+  <!-- Department Dropdown -->
+<!-- <select name="department" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+  <option value="" disabled selected>Select Department</option>
+  {% for department in departments %}
+  <option value="{{ department }}">{{ department }}</option>
+  {% endfor %}
+
+</select> -->
+<select name="department" id="department-select" 
+        hx-get="{% url 'get_doctors' %}" 
+        hx-target="#doctor-select-div" 
+        hx-trigger="change"
+       class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+  <option value="" disabled selected>Select Department</option>
+  {% for dept in departments %}
+    <option value="{{ dept.id }}">{{ dept.name }}</option>
+  {% endfor %}
+</select>
+  <!-- Doctor Dropdown -->
+<div id="doctor-select-div">
+  <select disabled class="border px-3 py-2 rounded">
+    <option>Select a department first</option>
+  </select>
+</div>
+
+
+
+  <!-- Serve Button -->
+  <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow hover:bg-blue-700 transition">
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+    </svg>
+    Serve
+  </button>
+</div>
+
+            </form>
+          </td>
+        </tr>
+        
+        {% endfor %}
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mobile hint -->
+  <div class="text-xs text-gray-500 mt-4 block md:hidden">
+    Scroll right to see all columns →
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<!-- No extra JS needed for the select -->
+{% endblock %}
