@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
+from environ import Env
+env = Env()
+Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,15 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q&02x2nv7xqdzm-)#no!7v7!fa^1(e)f3ietal%d*3%2rzq$2y'
-
+SECRET_KEY = env('SECRET_KEY')
+ENVIRONMENT = 'development'  # Change to 'production' in production environment
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if ENVIRONMENT == 'development' else False
 
-ALLOWED_HOSTS = ['192.168.165.139', '*']
+ALLOWED_HOSTS = ['192.168.165.139', 'localhost','127.0.0.1','myhealthmate.up.railway.app']
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',  # For local dev
     'https://d530-2409-4089-be11-bdca-177-5267-2a17-7bfa.ngrok-free.app'
+    'https://myhealthmate.up.railway.app',
 ]
 
 
@@ -46,6 +52,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -79,6 +87,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+SECRET_KEY = env('SECRET_KEY')
 AUTH_USER_MODEL = 'core.Patient'
 WSGI_APPLICATION = 'MyHealthMate.wsgi.application'
 
@@ -86,18 +95,24 @@ WSGI_APPLICATION = 'MyHealthMate.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+  # Change to 'production' in production environment
+if ENVIRONMENT == 'develoment':
+    DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': 'myhealthmate_database',
+                'USER':'postgres',
+                'PASSWORD':'Ujjwal@2005',
+                'HOST':'localhost',
+                'PORT':'5432',
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'myhealthmate_database',
-            'USER':'postgres',
-            'PASSWORD':'Ujjwal@2005',
-            'HOST':'localhost',
-            'PORT':'5432',
-
-        }
-}
+            }
+    }
+else:
+    import dj_database_url
+    DATABASES = {
+        'default':dj_database_url.parse(env('DATABASE_URL'))
+    }
 
 
 # Password validation
