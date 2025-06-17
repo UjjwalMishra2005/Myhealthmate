@@ -146,10 +146,10 @@
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">📜 Token History</a>
                         <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">🚪 Logout</a>
                         {% if request.user.is_staff or request.user.is_superuser %}
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">🩺 Serve</a>
+                        <a href="{% url 'serve' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">🩺 Serve</a>
                         {% endif %}
                         {% else %}
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">👤 Profile</a>
+                        <a href="{% url 'login' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">👤 Profile</a>
                         {% endif %}
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">📢 Awareness Program</a>
                     </div>
