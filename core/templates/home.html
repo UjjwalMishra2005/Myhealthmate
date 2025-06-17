@@ -85,7 +85,7 @@
                     <div class="flex items-center space-x-2">
                         <span class="text-gray-700 font-medium">{{request.user.full_name}}</span>
                         
-                        <!-- Dropdown -->
+                        <!-- Desktop Dropdown menu -->
 
                         <div class="relative">
                             <button 
@@ -103,15 +103,21 @@
                                     👤 Profile
                                 </a>
                                 <a hx-get="{% url 'signup' %}" hx-target="#main-content" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150">
-                                    🩺 Serve
+                                    Serve
                                 </a>
                                 {% else %}
                                 <a href="#"  class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150">
-                                    👤 Profile
+                                    hii {{first_name}} 👋
                                 </a>
+                                {% if request.user.is_staff or request.user.is_superuser %}
                                 <a href="{% url 'serve' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150">
-                                    🩺 Serve
+                                    Serve
                                 </a>
+                                {% endif %}
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150">
+                                    Token History
+                                </a>
+     
                                 {% endif %}
 
                             </div>
@@ -134,10 +140,17 @@
                     </button>
 
                     <div id="mobileMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-2">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">👤 Profile</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">🚪 Logout</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">🩺 Serve</a>
+
+                        {% if user.is_authenticated %}
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">👤 hii , {{first_name}} 👋</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">📜 Token History</a>
+                        <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">🚪 Logout</a>
+                        {% if request.user.is_staff or request.user.is_superuser %}
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">🩺 Serve</a>
+                        {% endif %}
+                        {% else %}
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">👤 Profile</a>
+                        {% endif %}
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">📢 Awareness Program</a>
                     </div>
                 </div>

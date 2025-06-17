@@ -1,6 +1,16 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login
-def home(request): 
+def home(request):
+    first_name = '' 
+    if request.user.is_authenticated:
+        
+        if " " in request.user.full_name:
+            
+            first_name,last_name = request.user.full_name.split(maxsplit=1)
+        else:
+            first_name = request.user.full_name
+            
+        
     token = None
     if request.user.is_authenticated:
         try:
@@ -15,7 +25,8 @@ def home(request):
     return render(request, 'main.html', {
         'is_authenticated': request.user.is_authenticated,
         'token': token,
-        'token_is_served': token_is_served if token else None
+        'token_is_served': token_is_served if token else None,
+        'first_name': first_name 
     })
 
 

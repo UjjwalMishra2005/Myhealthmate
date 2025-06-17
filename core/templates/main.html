@@ -126,6 +126,14 @@
     let scanAttempts = 0;
     let alerted = false;
 
+    const config = {
+      fps: 10,
+      qrbox: 250,
+      rememberLastUsedCamera: true,
+      // This tells the browser to use the back camera
+      facingMode: { exact: "environment" }
+    };
+
     qrScanner.render(
       (decodedText) => {
         try {
@@ -137,7 +145,6 @@
             return;
           }
 
-          // ✅ Show token popup
           document.getElementById("tokenText").textContent =
             `Center name is ${data.center_name}, center code is ${data.center_code}`;
           document.getElementById("tokenPopup").classList.remove("hidden");
@@ -149,24 +156,22 @@
             },
             body: JSON.stringify(data)
           })
-          .then(res => {
-            if (res.status === 409) {
-              throw new Error("duplicate");
-            }
-            if (!res.ok) throw new Error("Failed to save token");
-            return res.json();
-          })
-          .then(result => {
-            console.log("Saved to backend:", result);
-          })
-          .catch(err => {
-            console.error("Backend save error:", err);
-            if (err.message === "duplicate") {
-              alert("आपका टोकन पहले ही जनरेट हो चुका है.");
-            } else {
-              alert("Could not save the token.");
-            }
-          });
+            .then(res => {
+              if (res.status === 409) throw new Error("duplicate");
+              if (!res.ok) throw new Error("Failed to save token");
+              return res.json();
+            })
+            .then(result => {
+              console.log("Saved to backend:", result);
+            })
+            .catch(err => {
+              console.error("Backend save error:", err);
+              if (err.message === "duplicate") {
+                alert("आपका टोकन पहले ही जनरेट हो चुका है.");
+              } else {
+                alert("Could not save the token.");
+              }
+            });
 
         } catch {
           alert("Scanned QR is not valid JSON.");
@@ -175,13 +180,15 @@
         qrScanner.clear();
       },
       (error) => {
-        if (++scanAttempts > 10 && !alerted) {
+        if (++scanAttempts > 5000 && !alerted) {
           alerted = true;
           alert("This doesn't seem to be a QR code.");
           qrScanner.clear();
         }
-      }
+      },
+      config  // 👈 Pass config to use back camera
     );
+
   });
 
   document.getElementById("closePopup").addEventListener("click", () => {
